@@ -27,5 +27,5 @@ public class Student {
     private String nazwisko;
 
     @Getter
-    private int wiek;
+    private Integer wiek;
 }

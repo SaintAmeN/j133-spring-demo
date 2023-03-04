@@ -19,8 +19,16 @@ public class StudentController {
     }
 
     // READ
+    // http://localhost:8080/student/birthyear?sId=3
+    @GetMapping("/birthyear")
+    public int getBirthYear(@RequestParam Long sId) {
+        log.info("Ktoś zapytał o rok urodzenia studenta o id: {}", sId);
+        return studentService.getBirthYearOfStudentWithId(sId);
+    }
+
+    // READ
     // http://localhost:8080/student
-    @GetMapping("/get")
+    @GetMapping()
     public List<Student> getStudentList() {
         log.info("Ktoś zapytał o listę studentów.");
         return studentService.getAll();
