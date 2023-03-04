@@ -34,6 +34,22 @@ public class StudentController {
         return studentService.getAll();
     }
 
+    // READ
+    // http://localhost:8080/student/byId?studentId=1
+    @GetMapping("/byId")
+    public Student getStudentWithId(@RequestParam Long studentId){
+        log.info("Ktoś zapytał o studenta z identyfikatorem: {}", studentId);
+        return studentService.findById(studentId);
+    }
+
+    // READ
+    // http://localhost:8080/student/1
+    @GetMapping("/{identyfikator}")
+    public Student getStudentById(@PathVariable Long identyfikator) {
+        log.info("Ktoś zapytał o studenta z identyfikatorem: {}", identyfikator);
+        return studentService.findById(identyfikator);
+    }
+
     // DELETE
     // ADRES BAZOWY: http://localhost:8080/student
     //

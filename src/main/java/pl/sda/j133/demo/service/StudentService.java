@@ -45,4 +45,9 @@ public class StudentService {
     public void delete(Long studentId) {
         studentDao.deleteById(studentId);
     }
+
+    public Student findById(Long studentId) {
+        return studentDao.findById(studentId)
+                .orElseThrow(() -> new EntityNotFoundException("Nie znaleziono studenta o id " + studentId));
+    }
 }
