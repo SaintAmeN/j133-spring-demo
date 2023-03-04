@@ -3,6 +3,9 @@ package pl.sda.j133.demo.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import pl.sda.j133.demo.model.Student;
+import pl.sda.j133.demo.model.dto.CreateStudentRequest;
+import pl.sda.j133.demo.model.dto.UpdateStudentRequest;
+import pl.sda.j133.demo.model.dto.UpdateStudentResponse;
 import pl.sda.j133.demo.service.StudentService;
 
 import java.util.List;
@@ -37,7 +40,7 @@ public class StudentController {
     // READ
     // http://localhost:8080/student/byId?studentId=1
     @GetMapping("/byId")
-    public Student getStudentWithId(@RequestParam Long studentId){
+    public Student getStudentWithId(@RequestParam Long studentId) {
         log.info("Ktoś zapytał o studenta z identyfikatorem: {}", studentId);
         return studentService.findById(studentId);
     }
@@ -58,5 +61,20 @@ public class StudentController {
     public void deleteStudent(@RequestParam Long id) {
         log.info("Ktoś poprosił o usunięcie studenta o id: {}", id);
         studentService.delete(id);
+    }
+
+    // CREATE
+    // http://localhost:8080/student
+    @PostMapping()
+    public void createStudent(@RequestBody CreateStudentRequest request) {
+        log.info("Wywołano dodanie studenta: {}", request);
+        studentService.createStudent(request);
+    }
+
+    // UPDATE
+    @PatchMapping("/{studentId}")
+    public UpdateStudentResponse updateStudent(@PathVariable Long studentId, @RequestBody UpdateStudentRequest request) {
+        log.info("Wywołano aktualizację studenta o id: {}, dane: {}", studentId, request);
+        return studentService.update(studentId, request);
     }
 }
